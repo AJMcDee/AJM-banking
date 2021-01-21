@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome to Your Bank Account</h1>
+
+    <h2>Your balance is: $<span id="current-balance"></span></h2>
+
+    <h3>Deposit</h3>
+    <form>
+      <label for="deposit-amount">Amount:</label>
+      <input type="number" name="deposit-amount" id="deposit-amount" />
+    </form>
+    <input type="submit" onclick="submitDeposit()" /><span
+      id="deposit-response"
+    ></span>
+
+    <h3>Withdrawal</h3>
+    <form>
+      <label for="withdrawal-amount">Amount:</label>
+      <input type="number" name="withdrawal-amount" id="withdrawal-amount" />
+    </form>
+    <input type="submit" onclick="submitWithdrawal()" /><span
+      id="withdrawal-response"
+    ></span>
+
+    <script>
+      let storage = window.sessionStorage;
+      let token;
+      let balanceField = document.getElementById("current-balance");
+      window.onload = () => {
+        token = document.cookie.split("=")[1];
+        storage.setItem("token", token);
+        fetchBalance();
+      };
+
+      function fetchBalance() {
+        fetch("http://localhost:3552/balance", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `token=${token}`,
+        })
+          .then((data) => data.text())
+          .then((info) => {
+            balanceField.textContent = info;
+          })
+          .catch((err) => console.error(err));
+      }
+
+      function submitDeposit() {
+        let depositAmount = parseInt(
+          document.getElementById("deposit-amount").value
+        );
+        let depositResponse = document.getElementById("deposit-response");
+        document.getElementById("deposit-amount").value = 0;
+        fetch("http://localhost:3552/deposit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `token=${token}&amount=${depositAmount}`,
+        })
+          .then((data) => {
+            depositResponse.textContent = "SUCCESS";
+            setTimeout(() => {
+              depositResponse.textContent = "";
+            }, 1000);
+            fetchBalance();
+          })
+          .catch((err) => {
+            depositResponse.textContent = "Something Went Wrong";
+          });
+      }
+
+      function submitWithdrawal() {
+        let withdrawalAmount = document.getElementById("withdrawal-amount")
+          .value;
+        document.getElementById("withdrawal-amount").value = 0;
+        let withdrawalResponse = document.getElementById("withdrawal-response");
+        let currentBalance = parseInt(balanceField.textContent);
+        if (currentBalance >= withdrawalAmount) {
+          fetch("http://localhost:3552/withdraw", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `token=${token}&amount=${withdrawalAmount}`,
+          })
+            .then((data) => {
+              withdrawalResponse.textContent = "SUCCESS";
+
+              setTimeout(() => {
+                withdrawalResponse.textContent = "";
+              }, 1000);
+              fetchBalance();
+            })
+            .catch((err) => {
+              withdrawalResponse.textContent = "Something Went Wrong";
+            });
+        } else {
+          withdrawalResponse.textContent = "Withdrawal Amount Too High";
+        }
+      }
+    </script>
+  </body>
+</html>

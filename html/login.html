@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    form input {
+      margin: 10px 0px;
+    }
+  </style>
+  <body>
+    <h1>Log in to AJM Banking</h1>
+    <form action="/authentication" method="POST">
+      <label for="IBAN">IBAN:</label
+      ><input type="text" name="IBAN" id="IBAN" /><label for="PIN">PIN:</label
+      ><input type="password" name="PIN" id="PIN" />
+      <input type="submit" />
+    </form>
+  </body>
+</html>
