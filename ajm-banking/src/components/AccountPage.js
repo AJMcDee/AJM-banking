@@ -8,12 +8,9 @@ const AccountPage = (token, setToken) => {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
   let balanceFloat;
 
-  useEffect(fetchBalance, []);
+  useEffect(fetchBalance, [token]);
 
   function fetchBalance() {
-    if (!token) {
-      setToken(localStorage.getItem("token")); //CHANGE IN PRODUCTION
-    }
     fetch("http://localhost:3552/balance", {
       method: "POST",
       headers: {
@@ -23,12 +20,15 @@ const AccountPage = (token, setToken) => {
     })
       .then((data) => data.text())
       .then((info) => {
+        console.log(info);
         balanceFloat = parseFloat(info).toFixed(2);
         setBalance(balanceFloat);
         localStorage.setItem("token", token.token); //CHANGE IN PRODUCTION
-        return info;
+        return balanceFloat;
       })
-      .then((newBalance) => {})
+      .then((newBalance) => {
+        console.log(newBalance);
+      })
       .catch((err) => console.error(err));
   }
 
