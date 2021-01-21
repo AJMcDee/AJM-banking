@@ -6,22 +6,30 @@ function Nav({ setImageIndex }) {
     <BankNav>
       {" "}
       <BrandMessage>
-        <Link to="/" onClick={() => setImageIndex(0)}>
+        <Link to="/" onClick={() => setImageIndex(1)}>
           AJM Bank
         </Link>
       </BrandMessage>
       <NavList>
-        <li>personal</li>
-        <li>business</li>
-        <li>investment</li>
-        <li>about</li>
+        <Link to="/personal">
+          <li>personal</li>
+        </Link>
+        <Link to="/business">
+          <li>business</li>
+        </Link>
+        <Link to="/investment">
+          <li>investment</li>
+        </Link>
+        <Link to="/about">
+          <li>about</li>
+        </Link>
       </NavList>
     </BankNav>
   );
 }
 
 const BankNav = styled.nav`
-  margin-top: 50px;
+  margin: 50px 0 30px 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +63,7 @@ const BrandMessage = styled.h1`
     color: #2496aa;
     text-decoration: none;
   }
-  padding-left: 30px;
+  padding-left: 50px;
   font-size: 3.5em;
 `;
 

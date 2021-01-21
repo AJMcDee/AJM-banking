@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
-function Login({ isLoggedIn, setIsLoggedIn, setToken }) {
+function Login({ setIsLoggedIn, setToken }) {
   const [input, setInput] = useState({});
 
   function handleInputChange(e) {
@@ -42,11 +42,10 @@ function Login({ isLoggedIn, setIsLoggedIn, setToken }) {
           id="PIN"
           onChange={handleInputChange}
         />
+        <Link to="/myaccount" onClick={handleClick}>
+          Log In
+        </Link>
       </StyledForm>
-
-      <Link to="/myaccount" onClick={handleClick}>
-        Log In
-      </Link>
     </div>
   );
 }
@@ -54,9 +53,8 @@ function Login({ isLoggedIn, setIsLoggedIn, setToken }) {
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  label,
   input {
-    margin: 5px;
+    margin: 10px 0;
   }
   margin: 10px;
 `;

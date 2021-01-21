@@ -1,16 +1,7 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import AccountPageSidebar from "./AccountPageSidebar";
 
-const AccountPage = ({
-  token,
-  setToken,
-  handleLogout,
-  imageArray,
-  setImageIndex,
-  imageIndex,
-}) => {
+const AccountPage = ({ token, setImageIndex }) => {
   const [balance, setBalance] = useState(0);
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
@@ -22,7 +13,6 @@ const AccountPage = ({
   useEffect(fetchBalance, [token]);
 
   function fetchBalance() {
-    console.log(token);
     fetch("http://localhost:3552/balance", {
       method: "POST",
       headers: {
@@ -32,6 +22,18 @@ const AccountPage = ({
     })
       .then((data) => data.text())
       .then((info) => {
+        if (info.length > 3) {
+          let formatThousands = info
+            .split("")
+            .map((num, index) => {
+              if (index % info.length === info.length - 3) {
+                return `,${num}`;
+              } else {
+                return num;
+              }
+            })
+            .join("");
+        }
         balanceFloat = parseFloat(info).toFixed(2);
         setBalance(balanceFloat);
         localStorage.setItem("token", token); //CHANGE IN PRODUCTION
@@ -82,7 +84,6 @@ const AccountPage = ({
 
   return (
     <StyledAccountPage>
-      <AccountPageSidebar handleLogout={handleLogout} />
       <AccountPageMain>
         <h2>Your balance is: ${balance}</h2>
         <UserActionsContainer>
@@ -157,6 +158,7 @@ const ActionContainer = styled.div`
 `;
 
 const AccountPageMain = styled.main`
+  text-align: center;
   color: black;
 `;
 export default AccountPage;

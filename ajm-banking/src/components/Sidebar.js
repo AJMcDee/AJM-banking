@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Login from "./Login";
 
-function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, token, setToken }) {
+function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, setToken }) {
   return (
     <StyledSideBar>
       {" "}
@@ -17,28 +17,20 @@ function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, token, setToken }) {
           </Link>
         </>
       ) : (
-        <Login
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-          token={token}
-          setToken={setToken}
-        />
+        <Login setIsLoggedIn={setIsLoggedIn} setToken={setToken} />
       )}
     </StyledSideBar>
   );
 }
 
 const StyledSideBar = styled.aside`
+  margin: 0 50px;
   grid-area: sidebar;
-
-  /* position: absolute;
-  left: 50px;
-  top: 270px; */
   border: 4px solid #fca311;
   border-radius: 80px 0px 80px 0px;
   z-index: 1;
   background-color: #2496aa;
-  min-height: 200px;
+  height: clamp(200px, 50%, 80%);
   width: 200px;
   display: flex;
   flex-direction: column;

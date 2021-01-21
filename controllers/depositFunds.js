@@ -1,5 +1,5 @@
 function depositFunds(req, res) {
-  const amount = parseInt(req.body.amount);
+  const amount = parseFloat(req.body.amount);
   res.myDataClient
     .collection("accounts")
     .findOne({ currentToken: req.body.token }, (err, result) => {
