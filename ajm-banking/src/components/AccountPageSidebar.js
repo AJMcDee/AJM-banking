@@ -14,12 +14,8 @@ function Sidebar({ handleLogout }) {
 }
 
 const StyledSideBar = styled.aside`
-  position: absolute;
-  left: 50px;
-  top: 270px;
   border: 4px solid #fca311;
   border-radius: 80px 0px 80px 0px;
-  z-index: 1;
   background-color: #2496aa;
   min-height: 200px;
   width: 200px;

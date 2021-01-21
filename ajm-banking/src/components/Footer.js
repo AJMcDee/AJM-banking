@@ -10,9 +10,7 @@ function Footer() {
 }
 
 const StyledFooter = styled.footer`
-  position: absolute;
-  bottom: 0;
-  margin-top: 50px;
+  grid-area: footer;
   display: flex;
   text-align: center;
   align-items: center;
@@ -24,9 +22,6 @@ const StyledFooter = styled.footer`
     color: black;
     padding: 0 10px;
   }
-  width: 100vw;
-  max-width: 100%;
-  z-index: 1;
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(17.5px);

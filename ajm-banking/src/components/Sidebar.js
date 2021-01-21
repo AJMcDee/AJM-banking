@@ -29,9 +29,11 @@ function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, token, setToken }) {
 }
 
 const StyledSideBar = styled.aside`
-  position: absolute;
+  grid-area: sidebar;
+
+  /* position: absolute;
   left: 50px;
-  top: 270px;
+  top: 270px; */
   border: 4px solid #fca311;
   border-radius: 80px 0px 80px 0px;
   z-index: 1;

@@ -1,29 +1,40 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import AccountPageSidebar from "./AccountPageSidebar";
 
-const AccountPage = (token, setToken) => {
+const AccountPage = ({
+  token,
+  setToken,
+  handleLogout,
+  imageArray,
+  setImageIndex,
+  imageIndex,
+}) => {
   const [balance, setBalance] = useState(0);
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
-  let balanceFloat;
 
+  let balanceFloat;
+  useEffect(() => {
+    setImageIndex(2);
+  }, []);
   useEffect(fetchBalance, [token]);
 
   function fetchBalance() {
+    console.log(token);
     fetch("http://localhost:3552/balance", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `token=${token.token}`,
+      body: `token=${token}`,
     })
       .then((data) => data.text())
       .then((info) => {
-        console.log(info);
         balanceFloat = parseFloat(info).toFixed(2);
         setBalance(balanceFloat);
-        localStorage.setItem("token", token.token); //CHANGE IN PRODUCTION
+        localStorage.setItem("token", token); //CHANGE IN PRODUCTION
         return balanceFloat;
       })
       .then((newBalance) => {
@@ -49,7 +60,7 @@ const AccountPage = (token, setToken) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `token=${token.token}&amount=${depositAmount}`,
+      body: `token=${token}&amount=${depositAmount}`,
     }).then((data) => {
       setDepositAmount("");
       fetchBalance();
@@ -62,7 +73,7 @@ const AccountPage = (token, setToken) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `token=${token.token}&amount=${withdrawalAmount}`,
+      body: `token=${token}&amount=${withdrawalAmount}`,
     }).then((data) => {
       setWithdrawalAmount("");
       fetchBalance();
@@ -71,60 +82,62 @@ const AccountPage = (token, setToken) => {
 
   return (
     <StyledAccountPage>
-      <h2>Your balance is: ${balance}</h2>
-      <UserActionsContainer>
-        <ActionContainer>
-          <h3>Deposit</h3>
+      <AccountPageSidebar handleLogout={handleLogout} />
+      <AccountPageMain>
+        <h2>Your balance is: ${balance}</h2>
+        <UserActionsContainer>
+          <ActionContainer>
+            <h3>Deposit</h3>
 
-          <label for="deposit-amount">Amount:</label>
-          <input
-            type="number"
-            name="deposit-amount"
-            id="deposit-amount"
-            onChange={handleChange}
-            value={depositAmount}
-          />
+            <label for="deposit-amount">Amount:</label>
+            <input
+              type="number"
+              name="deposit-amount"
+              id="deposit-amount"
+              onChange={handleChange}
+              value={depositAmount}
+            />
 
-          <button onClick={handleDeposit}>Deposit</button>
-        </ActionContainer>
-        <ActionContainer>
-          <h3>Withdrawal</h3>
+            <button onClick={handleDeposit}>Deposit</button>
+          </ActionContainer>
+          <ActionContainer>
+            <h3>Withdrawal</h3>
 
-          <label for="withdrawal-amount">Amount:</label>
-          <input
-            type="number"
-            name="withdrawal-amount"
-            id="withdrawal-amount"
-            value={withdrawalAmount}
-            onChange={handleChange}
-          />
+            <label for="withdrawal-amount">Amount:</label>
+            <input
+              type="number"
+              name="withdrawal-amount"
+              id="withdrawal-amount"
+              value={withdrawalAmount}
+              onChange={handleChange}
+            />
 
-          <button
-            onClick={handleWithdrawal}
-            disabled={+balance > withdrawalAmount ? "" : "true"}
-          >
-            {+balance > withdrawalAmount ? "Withdraw" : "Amount Too High"}
-          </button>
-        </ActionContainer>
-      </UserActionsContainer>
+            <button
+              onClick={handleWithdrawal}
+              disabled={+balance > withdrawalAmount ? "" : "true"}
+            >
+              {+balance > withdrawalAmount ? "Withdraw" : "Amount Too High"}
+            </button>
+          </ActionContainer>
+        </UserActionsContainer>
+      </AccountPageMain>
     </StyledAccountPage>
   );
 };
 
 const StyledAccountPage = styled.main`
+  grid-area: main;
   color: black;
-  padding-top: 100px;
-  padding-left: 280px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 130px);
-  width: calc(100vw - 200px);
+  justify-content: space-around;
+  align-items: flex-start;
+
   max-width: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 0;
+
+  /* background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(17.5px);
+  -webkit-backdrop-filter: blur(17.5px); */
 `;
 
 const UserActionsContainer = styled.div`
@@ -143,4 +156,7 @@ const ActionContainer = styled.div`
   }
 `;
 
+const AccountPageMain = styled.main`
+  color: black;
+`;
 export default AccountPage;

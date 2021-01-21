@@ -1,6 +1,12 @@
 .App {
   text-align: center;
   color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.App > h1,
+h2 {
+  font-family: "Abel", sans-serif;
 }
 
 .App-logo {

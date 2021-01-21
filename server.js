@@ -30,14 +30,14 @@ const port = process.env.PORT || 3552;
 
 // CORS
 
-let corsOptions = {
-  origin: "http://localhost:3000",
-};
+// let corsOptions = {
+//   origin: "http://localhost:3000",
+// };
 
 // App settings
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true })); // for application/x-www-form-urlencoded requests
 app.use(bodyParser.json()); // for application/json requests
 app.use(express.static(path.join(__dirname, "ajm-banking", "build")));
@@ -70,7 +70,7 @@ client.connect(function (err, db) {
   // app.get("/", (req, res, next) => {
   //   res.send("API is working");
   // });
-  app.get("/", (req, res) => {
+  app.get("/*", (req, res) => {
     res
       .status(200)
       .sendFile(path.join(__dirname, "ajm-banking", "build", "index.html"));

@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function Nav({ isLoggedIn, handleLogout }) {
+function Nav({ setImageIndex }) {
   return (
     <BankNav>
       {" "}
       <BrandMessage>
-        <Link to="/">AJM Bank</Link>
+        <Link to="/" onClick={() => setImageIndex(0)}>
+          AJM Bank
+        </Link>
       </BrandMessage>
       <NavList>
         <li>personal</li>
@@ -25,6 +27,7 @@ const BankNav = styled.nav`
   justify-content: space-between;
   height: 120px;
   color: black;
+  grid-area: nav;
 
   a {
     color: black;
@@ -41,11 +44,6 @@ const BankNav = styled.nav`
     cursor: pointer;
   }
 
-  position: absolute;
-  width: 100vw;
-  max-width: 100%;
-  top: 0;
-  z-index: 1;
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(17.5px);
@@ -58,7 +56,6 @@ const BrandMessage = styled.h1`
     text-decoration: none;
   }
   padding-left: 30px;
-  font-family: sans-serif;
   font-size: 3.5em;
 `;
 
