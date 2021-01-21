@@ -28,12 +28,6 @@ const bankingRouter = require("./routers/bankingRouter");
 
 const port = process.env.PORT || 3552;
 
-// CORS
-
-// let corsOptions = {
-//   origin: "http://localhost:3000",
-// };
-
 // App settings
 
 const app = express();
@@ -49,7 +43,6 @@ const dbName = process.env.DBNAME;
 const MongoClient = require("mongodb").MongoClient;
 const uri = `mongodb+srv://${dbUsername}:${dbPassword}@cluster0.vfa9g.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true });
-// const url = "mongodb://localhost:27017/";
 
 client.connect(function (err, db) {
   if (err) throw err;
@@ -59,17 +52,7 @@ client.connect(function (err, db) {
     res.myDataClient = database;
     next();
   }
-  // GET page requests
 
-  // Original GET
-  // app.get("/", (req, res) => {
-  //   res.status(200).sendFile(path.join(__dirname, "/html/login.html"));
-  // });
-
-  // // React GET
-  // app.get("/", (req, res, next) => {
-  //   res.send("API is working");
-  // });
   app.get("/*", (req, res) => {
     res
       .status(200)
