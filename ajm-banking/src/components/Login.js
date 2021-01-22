@@ -18,7 +18,7 @@ function Login({ setIsLoggedIn, setToken }) {
       body: JSON.stringify(input),
     };
 
-    fetch("http://localhost:3552/authenticate", options)
+    fetch("/authenticate", options)
       .then((res) => {
         if (res.status == 200) {
           res.text().then((token) => {

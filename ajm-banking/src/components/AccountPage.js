@@ -13,7 +13,7 @@ const AccountPage = ({ token, setImageIndex }) => {
   useEffect(fetchBalance, [token]);
 
   function fetchBalance() {
-    fetch("http://localhost:3552/balance", {
+    fetch("/balance", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -57,7 +57,7 @@ const AccountPage = ({ token, setImageIndex }) => {
     if (isNaN(parseInt(depositAmount))) {
       return;
     }
-    fetch("http://localhost:3552/deposit", {
+    fetch("/deposit", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -70,7 +70,7 @@ const AccountPage = ({ token, setImageIndex }) => {
   }
 
   function handleWithdrawal(e) {
-    fetch("http://localhost:3552/withdraw", {
+    fetch("/withdraw", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
