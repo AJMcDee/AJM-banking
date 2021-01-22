@@ -17,8 +17,6 @@ AJM Banking is a new bank with a simple message: let's make things modern. This 
 
 ## To-do
 
-- CRUCIAL: Update login to redirect only on successful login attempt (use of `<Redirect>` in `react-router-dom` will disallow visits to 'home' so another option must be found)
-- Change layout to Grid and improve mobile experience
-- Add personal/business/investment page mockups
+- Improve mobile experience
 - Add 'Latest 5 transactions' and add transaction list to MongoDB collection
 - Add bank account name to personalise welcome message
