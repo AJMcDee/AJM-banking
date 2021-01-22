@@ -6,6 +6,7 @@ function Main() {
       <HeaderPanel>
         <h1>Banking of the Future.</h1>
         <p>Keeping your finances smart since 2020.</p>
+        <small>Sample login: DE123456, PIN 123456.</small>
       </HeaderPanel>
     </StyledMain>
   );
