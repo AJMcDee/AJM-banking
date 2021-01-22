@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 
 // Components
 import Nav from "./components/Nav";
@@ -12,7 +17,6 @@ import Personal from "./components/Personal";
 import Business from "./components/Business";
 import Investment from "./components/Investment";
 import About from "./components/About";
-
 import Footer from "./components/Footer";
 import AccountPage from "./components/AccountPage";
 import Sidebar from "./components/Sidebar";
@@ -28,6 +32,7 @@ import background6 from "./img/main-bg-6.jpg";
 import background7 from "./img/main-bg-7.jpg";
 
 function App() {
+  const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState("");
   const [imageIndex, setImageIndex] = useState(3);
@@ -74,7 +79,7 @@ function App() {
 
   // Logout button
   function handleLogout() {
-    setImageIndex(1);
+    // setImageIndex(1);
     setIsLoggedIn(false);
     localStorage.setItem("isLoggedIn", "false");
   }
@@ -99,7 +104,7 @@ function App() {
 
   return (
     <StyledApp>
-      <Router>
+      <Router history={history}>
         <Nav setImageIndex={setImageIndex} />
 
         <Switch>
@@ -117,9 +122,9 @@ function App() {
           <Route exact path={`/`}>
             <Sidebar
               isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
               handleLogout={handleLogout}
               setToken={setToken}
+              setIsLoggedIn={setIsLoggedIn}
             />
             <Main />
           </Route>

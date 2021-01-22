@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Login from "./Login";
+import { useEffect } from "react";
 
 function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, setToken }) {
+  const history = useHistory();
+
   return (
     <StyledSideBar>
       {" "}
@@ -17,7 +20,7 @@ function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, setToken }) {
           </Link>
         </>
       ) : (
-        <Login setIsLoggedIn={setIsLoggedIn} setToken={setToken} />
+        <Login setToken={setToken} setIsLoggedIn={setIsLoggedIn} />
       )}
     </StyledSideBar>
   );

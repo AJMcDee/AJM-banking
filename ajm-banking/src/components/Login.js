@@ -1,21 +1,23 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 function Login({ setIsLoggedIn, setToken }) {
-  const [input, setInput] = useState({});
+  const [loginDetails, setLoginDetails] = useState({});
+  const [failAttempts, setFailAttempts] = useState(0);
 
+  const history = useHistory();
   function handleInputChange(e) {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   }
 
-  function handleClick() {
+  function handleLogin() {
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(input),
+      body: JSON.stringify(loginDetails),
     };
 
     fetch("/authenticate", options)
@@ -25,26 +27,46 @@ function Login({ setIsLoggedIn, setToken }) {
             setToken(token);
             setIsLoggedIn(true);
           });
+        } else {
+          throw new Error("Authentication Failed");
         }
       })
-      .catch((err) => console.log(err));
+      .then(() => {
+        history.push("/myaccount");
+      })
+      .catch((err) => {
+        setFailAttempts(failAttempts + 1);
+        console.log(err);
+      });
   }
 
   return (
     <div>
       <StyledForm>
         <label htmlFor="IBAN">IBAN:</label>
-        <input type="text" name="IBAN" id="IBAN" onChange={handleInputChange} />
+        <input
+          type="text"
+          name="IBAN"
+          id="IBAN"
+          onChange={handleInputChange}
+          value={loginDetails.IBAN}
+        />
         <label htmlFor="PIN">PIN:</label>
         <input
           type="password"
           name="PIN"
           id="PIN"
           onChange={handleInputChange}
+          value={loginDetails.PIN}
         />
-        <Link to="/myaccount" onClick={handleClick}>
-          Log In
-        </Link>
+        <a onClick={handleLogin}>Log In</a>
+        <FailMessage>
+          {failAttempts > 0 && failAttempts < 3
+            ? "Login failed. Please check your credentials and try again."
+            : failAttempts >= 3
+            ? "Have you tried 'DE123456' with password '123456'?"
+            : null}
+        </FailMessage>
       </StyledForm>
     </div>
   );
@@ -57,6 +79,12 @@ const StyledForm = styled.form`
     margin: 10px 0;
   }
   margin: 10px;
+`;
+
+const FailMessage = styled.p`
+  color: black;
+  font-size: 0.8em;
+  text-align: center;
 `;
 
 export default Login;
