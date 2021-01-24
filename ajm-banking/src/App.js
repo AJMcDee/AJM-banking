@@ -88,7 +88,8 @@ function App() {
     display: grid;
     align-items: start;
     grid-template-columns: 100%;
-    grid-template-rows: auto 1fr 1fr auto;
+    grid-template-rows: auto 1fr auto auto;
+
     align-items: center;
     grid-template-areas:
       "nav"
