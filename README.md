@@ -17,6 +17,5 @@ AJM Banking is a new bank with a simple message: let's make things modern. This 
 
 ## To-do
 
-- Improve mobile experience
 - Add 'Latest 5 transactions' and add transaction list to MongoDB collection
-- Add bank account name to personalise welcome message
+- Add bank account name to personalise account page
