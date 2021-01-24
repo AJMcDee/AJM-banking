@@ -4,7 +4,7 @@ import styled from "styled-components";
 function Sidebar({ handleLogout }) {
   return (
     <StyledSideBar>
-      <h2>Welcome Back</h2>
+      <h2>Options</h2>
       <Link to="/" onClick={handleLogout}>
         Log Out
       </Link>
@@ -13,13 +13,13 @@ function Sidebar({ handleLogout }) {
 }
 
 const StyledSideBar = styled.aside`
-  margin: 0 50px;
   grid-area: sidebar;
+  margin: 40px auto;
   border: 4px solid #fca311;
   border-radius: 80px 0px 80px 0px;
   z-index: 1;
   background-color: #2496aa;
-  height: clamp(200px, 50%, 80%);
+
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -35,6 +35,12 @@ const StyledSideBar = styled.aside`
     border-radius: 5px;
     color: black;
     text-decoration: none;
+  }
+
+  @media (min-width: 1024px) {
+    margin: 0 50px;
+
+    height: clamp(200px, 50%, 80%);
   }
 `;
 

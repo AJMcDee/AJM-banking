@@ -130,20 +130,25 @@ const StyledAccountPage = styled.main`
   grid-area: main;
   color: black;
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-
+  justify-content: center;
+  @media (min-width: 360px) {
+  }
+  @media (min-width: 768px) {
+  }
+  @media (min-width: 1024px) {
+    justify-content: space-around;
+    align-items: flex-start;
+  }
   max-width: 100%;
-
-  /* background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(17.5px);
-  -webkit-backdrop-filter: blur(17.5px); */
 `;
 
 const UserActionsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
 `;
 
 const ActionContainer = styled.div`

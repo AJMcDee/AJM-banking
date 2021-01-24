@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 
 function About({ setImageIndex }) {
-  useEffect(() => {
-    setImageIndex(6);
-  });
+  setImageIndex(6);
 
   return (
     <StyledMain>
@@ -45,18 +42,24 @@ const StyledMain = styled.main`
 
 const HeaderPanel = styled.div`
   color: white;
-  h1 {
-    font-size: 1.5em;
-  }
-  padding: 50px;
+
+  font-size: 1em;
+  padding: 20px;
+  max-width: 90%;
   min-height: 20vh;
-  /* min-width: 30vw; */
-  width: clamp(30vw, 50vw, 90vw);
   background: rgba(0, 0, 0, 0.7);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
+  h1 {
+    font-size: 2em;
+  }
+  @media (min-width: 1024px) {
+    padding: 50px;
+    width: clamp(30vw, 50vw, 90vw);
+    font-size: 1.3em;
+  }
 `;
 
 export default About;

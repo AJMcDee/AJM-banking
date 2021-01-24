@@ -79,7 +79,7 @@ function App() {
 
   // Logout button
   function handleLogout() {
-    // setImageIndex(1);
+    setImageIndex(1);
     setIsLoggedIn(false);
     localStorage.setItem("isLoggedIn", "false");
   }
@@ -87,19 +87,34 @@ function App() {
   const StyledApp = styled.div`
     display: grid;
     align-items: start;
-    grid-template-columns: 25% auto;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 1fr 1fr auto;
+    align-items: center;
+    grid-template-areas:
+      "nav"
+      "main"
+      "sidebar"
+      "footer";
     min-height: 100vh;
     width: 100vw;
     max-width: 100%;
-    grid-template-areas:
-      "nav nav"
-      "sidebar main"
-      "footer footer";
     background-image: url(${imageArray[imageIndex]});
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    @media (min-width: 768px) {
+      grid-template-rows: auto 1fr auto auto;
+    }
+    @media (min-width: 1024px) {
+      grid-template-columns: 25% auto;
+      grid-template-rows: auto 1fr auto;
+      align-items: unset;
+
+      grid-template-areas:
+        "nav nav"
+        "sidebar main"
+        "footer footer";
+    }
   `;
 
   return (

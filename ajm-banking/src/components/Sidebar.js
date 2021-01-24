@@ -27,13 +27,13 @@ function Sidebar({ isLoggedIn, setIsLoggedIn, handleLogout, setToken }) {
 }
 
 const StyledSideBar = styled.aside`
-  margin: 0 50px;
+  margin: 40px auto;
   grid-area: sidebar;
   border: 4px solid #fca311;
   border-radius: 80px 0px 80px 0px;
   z-index: 1;
   background-color: #2496aa;
-  height: clamp(200px, 50%, 80%);
+  height: clamp(200px, 50%, 80vh);
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -49,6 +49,17 @@ const StyledSideBar = styled.aside`
     border-radius: 5px;
     color: black;
     text-decoration: none;
+  }
+
+  @media (min-width: 768px) {
+    width: clamp(200px, 60vw, 90%);
+    margin: 60px auto;
+    height: clamp(200px, 40%, 50vh);
+  }
+  @media (min-width: 1024px) {
+    text-align: center;
+    margin: 0 50px;
+    width: clamp(100px, 60%, 80%);
   }
 `;
 
