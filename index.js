@@ -26,7 +26,7 @@ const bankingRouter = require("./routers/bankingRouter");
 
 // Global constants
 
-const port = process.env.PORT || 3552;
+const port = process.env.PORT || 3551;
 
 // App settings
 
