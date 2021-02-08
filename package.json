@@ -20,6 +20,6 @@
     "require_optional": "^1.0.1"
   },
   "engines": {
-    "node": "12.18.4"
+    "node": "14.15.4"
   }
 }
