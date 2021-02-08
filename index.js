@@ -37,13 +37,12 @@ app.use(bodyParser.json()); // for application/json requests
 app.use(express.static(path.join(__dirname, "ajm-banking", "build")));
 
 // Connect to Database
-// const dbUsername = process.env.DBUSER;
-// const dbPassword = process.env.DBPASSWORD;
-// const dbName = process.env.DBNAME;
+const dbUsername = process.env.DBUSER;
+const dbPassword = process.env.DBPASSWORD;
+const dbName = process.env.DBNAME;
 
 const MongoClient = require("mongodb").MongoClient;
-// const uri = `mongodb+srv://${dbUsername}:${dbPassword}@cluster0.vfa9g.mongodb.net/${dbName}?retryWrites=true&w=majority`;
-const uri = process.env.DB_URI;
+const uri = `mongodb+srv://${dbUsername}:${dbPassword}@cluster0.vfa9g.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
