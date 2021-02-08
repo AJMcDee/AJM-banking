@@ -1,6 +1,7 @@
 {
   "name": "ajm-banking",
   "homepage": ".",
+  "proxy": "http://localhost:3552/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
